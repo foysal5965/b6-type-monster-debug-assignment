@@ -17,15 +17,16 @@ fetch("./texts.json")
   .then((data) => {
     questionText = data[Math.floor(Math.random() * data.length)];
     question.innerHTML = questionText;
+    
   });
 
 // checks the user typed character and displays accordingly
 const typeController = (e) => {
   const newLetter = e.key;
-
+// console.log(newLetter)
   // Handle backspace press
   if (newLetter == "Backspace") {
-    userText = userText.slice(0, userText.length - 1);
+    userText = userText.slice(0, userText.length -1);
     return display.removeChild(display.lastChild);
   }
 
@@ -67,8 +68,8 @@ const gameOver = () => {
   // the current time is the finish time
   // so total time taken is current time - start time
   const finishTime = new Date().getTime();
-  const timeTaken = (finishTime - startTime) / 1000;
-
+  const timeTakens = (finishTime - startTime) / 1000;
+const timeTaken = parseInt(timeTakens.toFixed(1))
   // show result modal
   resultModal.innerHTML = "";
   resultModal.classList.toggle("hidden");
@@ -89,7 +90,7 @@ const gameOver = () => {
 
   // restart everything
   startTime = null;
-  errorCount = 0;
+  errorCount += errorCount;
   userText = "";
   display.classList.add("inactive");
 };
@@ -108,7 +109,7 @@ const start = () => {
   let count = 3;
   countdownOverlay.style.display = "flex";
   const startCountdown = setInterval(() => {
-    countdownOverlay.innerHTML = '<h1>${count}</h1>';
+    countdownOverlay.innerHTML = `<h1>${count}</h1>`;
    
     
 
@@ -116,12 +117,14 @@ const start = () => {
     if (count == 0) {
       // -------------- START TYPING -----------------
       document.addEventListener("keydown", typeController);
-      countdownOverlay.style.display = "flex";
+      countdownOverlay.style.display = 'none';
       display.classList.remove("inactive");
+      
 
       clearInterval(startCountdown);
       startTime = new Date().getTime();
     }
+  
     count--;
   }, 1000);
 };
